@@ -10,6 +10,7 @@ pub mod anchor_counter {
     pub fn initialize_counter(ctx: Context<InitializeCounter>, data: u64) -> Result<()> {
         //in order to update a data structure this is to be added as &mut
         let data_account = &mut ctx.accounts.data_account;
+        msg!("counter account address: {:?}", data_account);
         data_account.counter = data;
         Ok(())
     }
@@ -69,6 +70,7 @@ pub struct Set<'info> {
 
 //PDA
 //Data account to the anchor_counter program
+#[derive(Debug)]
 #[account]
 pub struct CounterAccount {
     pub counter: u64,
@@ -77,5 +79,5 @@ pub struct CounterAccount {
 #[error_code]
 pub enum ZeroError {
     #[msg("Cannot decrease below Zero(0)")]
-    NoDecrement
+    NoDecrement,
 }
