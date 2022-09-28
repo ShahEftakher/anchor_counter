@@ -21,11 +21,15 @@ for the whole App
 const MyApp = ({ Component, pageProps }: AppProps) => {
   //set network
   const network = 'http://localhost:8899';
-
+  //rpc endpoint
   const endPoint = useMemo(() => network, [network]);
-
+  //Wallet list on the walletModal
   const wallets = useMemo(() => [new PhantomWalletAdapter()], [network]);
 
+  /**
+   * Connection provider provides chain info and rpc endpoint
+   * Wallet provider provides the wallet list to the child components
+   */
   return (
     <ConnectionProvider endpoint={endPoint}>
       <WalletProvider wallets={wallets} autoConnect>
